@@ -8,6 +8,7 @@ class Api::V1::BeerPresenter < ApiPresenter
       name:        @beer.name,
       description: @beer.description,
       abv:         @beer.abv,
+      calories:    @beer.calories,
       created_at:  @beer.created_at,
       updated_at:  @beer.updated_at,
       brewery:     {

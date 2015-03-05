@@ -1,5 +1,5 @@
 class Beer < ActiveRecord::Base
-  SORTABLE_COLUMNS = %w(id name created_at updated_at).freeze
+  SORTABLE_COLUMNS = %w(id name created_at updated_at calories).freeze
 
   include SearchableModel
 
@@ -10,8 +10,9 @@ class Beer < ActiveRecord::Base
   validates :name,        presence: true, length: { maximum: 255 }
   validates :description, presence: true, length: { maximum: 4096 }
   validates :abv,         presence: true, numericality: true
+  validates :calories,    presence: true, numericality: true
 
-  attr_accessible :name, :description, :abv
+  attr_accessible :name, :description, :abv, :calories
 
   def self.filter_by_brewery_id(brewery_id)
     if brewery_id.present?
