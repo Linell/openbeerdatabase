@@ -26,3 +26,5 @@ group :test do
   gem "rspec-rails",        "2.13.2"
   gem "shoulda-matchers",   "2.1.0"
 end
+
+ruby '2.1.2'
