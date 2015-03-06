@@ -117,8 +117,8 @@ end
 describe User, "#can_access?" do
   subject { create(:user) }
 
-  let(:user_beer)  { create(:beer, user: subject) }
-  let(:other_beer) { create(:beer) }
+  let(:user_beer)  { create(:beer, user: subject, calories: 127) }
+  let(:other_beer) { create(:beer, calories: 127) }
 
   it "returns true when the record is owned by the user" do
     subject.can_access?(user_beer).should == true

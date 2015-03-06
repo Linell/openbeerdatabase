@@ -19,15 +19,19 @@ describe Beer do
   it { should validate_numericality_of(:abv) }
   it { should allow_mass_assignment_of(:abv) }
 
+  it { should validate_presence_of(:calories) }
+  it { should validate_numericality_of(:calories) }
+  it { should allow_mass_assignment_of(:calories) }
+
   it "includes SearchableModel" do
     Beer.included_modules.should include(SearchableModel)
   end
 end
 
 describe Beer, ".filter_by_brewery_id" do
-  let(:ale)     { create(:beer, brewery: brewery, name: "Ale") }
-  let(:ipa)     { create(:beer, name: "IPA") }
-  let(:stout)   { create(:beer, brewery: brewery, name: "Stout") }
+  let(:ale)     { create(:beer, brewery: brewery, name: "Ale", calories: 127) }
+  let(:ipa)     { create(:beer, name: "IPA", calories: 127) }
+  let(:stout)   { create(:beer, brewery: brewery, name: "Stout", calories: 127) }
   let(:brewery) { create(:brewery) }
   let!(:beers)  { [ale, ipa, stout] }
 
@@ -43,8 +47,8 @@ describe Beer, ".filter_by_brewery_id" do
 end
 
 describe Beer, ".filter_by_name" do
-  let(:ale)    { create(:beer, name: "Ale") }
-  let(:ipa)    { create(:beer, name: "IPA") }
+  let(:ale)    { create(:beer, name: "Ale", calories: 127) }
+  let(:ipa)    { create(:beer, name: "IPA", calories: 127) }
   let!(:beers) { [ale, ipa] }
 
   it "filters resutls" do
@@ -68,8 +72,8 @@ end
 
 describe Beer, ".for_token" do
   let!(:user) { create(:user) }
-  let!(:ale)  { create(:beer, user: nil) }
-  let!(:ipa)  { create(:beer, user: user) }
+  let!(:ale)  { create(:beer, user: nil, calories: 127) }
+  let!(:ipa)  { create(:beer, user: user, calories: 127) }
 
   before do
     User.stubs(:find_by_public_or_private_token)
@@ -150,8 +154,8 @@ describe Beer, ".search" do
 end
 
 describe Beer, ".order_by" do
-  let(:ale)        { create(:beer, name: "Ale") }
-  let(:ipa)        { create(:beer, name: "IPA") }
+  let(:ale)        { create(:beer, name: "Ale", calories: 127) }
+  let(:ipa)        { create(:beer, name: "IPA", calories: 127) }
   let!(:name_asc)  { [ale, ipa] }
   let!(:name_desc) { [ipa, ale] }
 
@@ -169,10 +173,10 @@ end
 
 describe Beer, "public?" do
   it "returns true when no user is present" do
-    create(:beer, user: nil).should be_public
+    create(:beer, user: nil, calories: 127).should be_public
   end
 
   it "returns false when a user is present" do
-    create(:beer, user: build(:user)).should_not be_public
+    create(:beer, user: build(:user), calories: 127).should_not be_public
   end
 end

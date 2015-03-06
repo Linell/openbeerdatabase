@@ -180,7 +180,7 @@ describe Brewery, "being destroyed" do
   end
 
   it "is not destroyed when it has beers" do
-    create(:beer, brewery: subject)
+    create(:beer, brewery: subject, calories: 127)
     subject.destroy.should be_false
   end
 end
